@@ -1,8 +1,8 @@
 {
-    "name": "santana.backend",
+    "name": "api-santana",
     "version": "1.0.0",
     "description": "API do site santanna",
-    "main": "./dist/shared/http/server.js",
+    "main": "./dist/server.js",
     "type": "module",
     "scripts": {
         "format:check": "prettier --check .",
@@ -10,9 +10,9 @@
         "lint:check": "eslint .",
         "lint:fix": "eslint --fix .",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon --watch 'src/' --exec 'ts-node src/shared/http/server.ts' -e ts",
+        "dev": "export NODE_ENV=development && nodemon --watch 'src/' --exec 'ts-node --esm src/server.ts' -e ts",
         "build": "rimraf ./dist && tsc",
-        "start": "npm run build && node ./dist/shared/http/server.js"
+        "start": "npm run build && node --experimental-specifier-resolution=node ./dist/server.js"
     },
     "author": "Ze Santanna (http://santanaquimica.com.br/)",
     "license": "MIT",
@@ -28,6 +28,8 @@
         "ts-node": "^10.9.1"
     },
     "dependencies": {
+        "dotenv": "^16.0.3",
+        "jsonwebtoken": "^8.5.1",
         "rimraf": "^3.0.2"
     }
 }
