@@ -1,3 +1,8 @@
+# edited by me
+dist/
+build/
+
+
 # Logs
 logs
 *.log
