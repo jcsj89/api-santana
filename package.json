@@ -1,0 +1,33 @@
+{
+    "name": "santana.backend",
+    "version": "1.0.0",
+    "description": "API do site santanna",
+    "main": "./dist/shared/http/server.js",
+    "type": "module",
+    "scripts": {
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write .",
+        "lint:check": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon --watch 'src/' --exec 'ts-node src/shared/http/server.ts' -e ts",
+        "build": "rimraf ./dist && tsc",
+        "start": "npm run build && node ./dist/shared/http/server.js"
+    },
+    "author": "Ze Santanna (http://santanaquimica.com.br/)",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/express": "^4.17.14",
+        "@typescript-eslint/eslint-plugin": "^5.41.0",
+        "@typescript-eslint/parser": "^5.41.0",
+        "eslint": "^8.26.0",
+        "eslint-config-prettier": "^8.5.0",
+        "express": "^4.18.2",
+        "nodemon": "^2.0.20",
+        "prettier": "^2.7.1",
+        "ts-node": "^10.9.1"
+    },
+    "dependencies": {
+        "rimraf": "^3.0.2"
+    }
+}
