@@ -1,27 +1,30 @@
 import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
 import config from './config/index.js'; // config dotenv
 import AppError from './middleware/AppError.js';
+import routes from './routes/index.js';
 
 // constants
 const port = config.port || 3333;
 
 const app = express();
 
-app.get('/', (req, res) => {
-    throw new AppError('Erro forcado');
-    res.json({ message: 'Hello World 2' });
-});
+// ROUTES
+app.use(routes);
 
-// favicon 
-app.get('/favicon.ico', (req, res) => {
-    res.status(200).send('');
+// favicon - ainda nao resolveu o problema
+app.use((req, res, next: NextFunction) => {
+    if (req.originalUrl && req.originalUrl.split('/').pop() === 'favicon.ico') {
+        return res.sendStatus(204);
+    }
+    next();
 });
 
 // 404 error
-app.use((_: Request, res: Response, __: NextFunction) => {
+app.use((req: Request, res: Response) => {
     res.status(404).json({
         status: 404,
-        message: 'Pagina nao encontrada',
+        message: 'Pagina nao encontrada.',
     });
 });
 
