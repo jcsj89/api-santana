@@ -1,9 +1,15 @@
-import knex from 'knex';
+import knex, { Knex } from 'knex';
 
 const environment = process.env.NODE_ENV || 'development';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import { database2 } from './knexfile.js';
 
-const connection = database2;
+import { config } from './knexfile';
+
+let connection: Knex;
+
+if (environment === 'development') {
+    connection = knex(config.development);
+} else {
+    connection = knex(config.production);
+}
 
 export default connection;
