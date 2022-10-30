@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import AppError from './AppError.js';
+import AppError from './AppError';
 
 const errorHandling = (
     error: Error,
@@ -8,9 +8,9 @@ const errorHandling = (
     next: NextFunction
 ) => {
     if (error instanceof AppError) {
-        return res.status(error.statusCode || 500).json({
+        return res.status(500).json({
             status: 'API Error',
-            statusCode: error.statusCode,
+            statusCode: 500,
             message: error.message,
         });
     }

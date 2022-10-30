@@ -7,19 +7,18 @@
         "type": "git",
         "url": ""
     },
-    "type": "module",
     "scripts": {
         "format:check": "prettier --check .",
         "format:write": "prettier --write .",
         "lint:check": "eslint .",
         "lint:fix": "eslint --fix .",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "export NODE_ENV=development && nodemon --watch 'src/' --exec 'ts-node --esm src/server.ts' -e ts",
+        "dev": "export NODE_ENV=development && nodemon --watch 'src/' --exec 'ts-node --project ./tsconfig.json -r tsconfig-paths/register src/server.ts' -e ts",
         "tsdev": "ts-node-dev --respawn --transpile-only src/server.ts",
         "build": "rimraf ./dist && tsc",
         "start": "npm run build && node --experimental-specifier-resolution=node ./dist/server.js",
-        "knex": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' npx knex",
-        "knex:migrate:make": "npm run knex -- --knexfile src/database/knexfile.ts --esm migrate:make",
+        "knex": "npx knex",
+        "knex:migrate:make": "knex --knexfile src/database/knexfile.ts migrate:make",
         "knex:migrate:latest": "knex --knexfile src/database/knexfile.ts migrate:latest",
         "knex:migrate:rollback": "knex --knexfile src/database/knexfile.ts migrate:rollback"
     },
@@ -38,7 +37,8 @@
         "nodemon": "^2.0.20",
         "prettier": "^2.7.1",
         "ts-node": "^10.9.1",
-        "ts-node-dev": "^2.0.0"
+        "ts-node-dev": "^2.0.0",
+        "tsconfig-paths": "^4.1.0"
     },
     "dependencies": {
         "cors": "^2.8.5",

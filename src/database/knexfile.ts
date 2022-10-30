@@ -1,13 +1,12 @@
 import 'ts-node/register';
 import path from 'path';
-import { fileURLToPath } from 'url';
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// import { database } from '../config/index.js';
+
+import { database } from '../config/index';
 
 const config = {
     development: {
-        client: 'postgresql',
-        connection: process.env.DB_URL,
+        client: 'pg',
+        connection: database.url,
         pool: {
             min: 2,
             max: 10,
@@ -21,8 +20,8 @@ const config = {
     },
 
     production: {
-        client: 'postgresql',
-        // connection: database.url,
+        client: 'pg',
+        connection: database.url,
         pool: {
             min: 2,
             max: 10,
@@ -36,5 +35,5 @@ const config = {
     },
 };
 
-export { config };
-// module.exports = config;
+// export { config };
+module.exports = config;

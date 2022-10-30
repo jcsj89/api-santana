@@ -1,14 +1,15 @@
+import 'pg';
+import './database/connection';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import config from './config/index'; // config dotenv
-import AppError from './middlewares/AppError.js';
+
 import routes from './routes/index';
 import cors from 'cors';
-// dirname
+
 import path from 'path';
-import { fileURLToPath } from 'url';
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import { errorHandling, error404 } from './middlewares/ErrorHandling.js';
+
+import { errorHandling, error404 } from './middlewares/ErrorHandling';
 
 // constants
 const port = config.port || 3333;
@@ -17,6 +18,7 @@ const app = express();
 
 // static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(cors());
 
 // ROUTES

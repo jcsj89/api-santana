@@ -2,14 +2,8 @@ import knex, { Knex } from 'knex';
 
 const environment = process.env.NODE_ENV || 'development';
 
-import { config } from './knexfile';
+import config = require('./knexfile');
 
-let connection: Knex;
-
-if (environment === 'development') {
-    connection = knex(config.development);
-} else {
-    connection = knex(config.production);
-}
+const connection = knex(config[environment]);
 
 export default connection;

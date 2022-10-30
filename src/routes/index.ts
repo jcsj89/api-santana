@@ -1,15 +1,15 @@
 import { Request, Response, Router } from 'express';
 import connection from '../database/connection';
 import AppError from '../middlewares/AppError';
-import userRoutes from '../modules/users/routes/user.routes';
+import userRotas from '../modules/users/routes/userRotas';
 
 const routes = Router();
 
-routes.use(userRoutes);
+routes.use(userRotas);
 
 routes.get('/', (_, response: Response) => {
-    // const conn = connection.migrate.status();
-    console.log(connection);
+    const conn = connection.migrate.status();
+    console.log(conn);
 
     response.json({
         project: 'API Santana',
@@ -26,7 +26,7 @@ routes.get('/err', (_: Request, __: Response) => {
 
 // test errors4
 routes.get('/apperror', (_: Request, __: Response) => {
-    throw new AppError('ERRO GERADO PELO APP ERROR', 500);
+    throw new AppError('message');
 });
 
 export default routes;
