@@ -1,15 +1,18 @@
 import 'pg';
-import './database/connection';
-import express, { NextFunction, Request, Response } from 'express';
+import './database/knex.js';
+import express from 'express';
 import 'express-async-errors';
-import config from './config/index'; // config dotenv
+import config from './config/index.js'; // config dotenv
 
-import routes from './routes/index';
+import routes from './routes/index.js';
 import cors from 'cors';
 
 import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-import { errorHandling, error404 } from './middlewares/ErrorHandling';
+import { errorHandling, error404 } from './middlewares/ErrorHandling.js';
 
 // constants
 const port = config.port || 3333;
@@ -31,5 +34,5 @@ app.use(errorHandling);
 // STARTUP
 app.listen(port, () => {
     console.log(`Server Starts on Port ${port}`);
-    console.log('Envioment: ', process.env.NODE_ENV);
+    console.log('Envioment: ', config.env);
 });

@@ -1,20 +1,9 @@
-import AppError from './AppError';
-import { NextFunction, Request, Response } from 'express';
+import AppError from './AppError.js';
+
 import { verify } from 'jsonwebtoken';
-import auth from '../config/auth';
+import auth from '../config/auth.js';
 
-interface TokenPayload {
-    iat: number;
-    exp: number;
-    subject: string;
-    isAdmin: boolean;
-}
-
-export default function isAuthenticated(
-    request: Request,
-    _: Response,
-    next: NextFunction
-): void {
+export default function isAuthenticated(request, _, next) {
     const authHeader = request.headers.authorization;
 
     if (!authHeader) throw new AppError('Jwt Token is missing.');
@@ -24,7 +13,7 @@ export default function isAuthenticated(
     try {
         const decodedToken = verify(token, auth.JWT.secret);
 
-        const { subject, isAdmin } = decodedToken as TokenPayload;
+        const { subject, isAdmin } = decodedToken;
 
         // request.user = {
         //   id: subject,

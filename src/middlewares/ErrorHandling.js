@@ -1,12 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import AppError from './AppError';
 
-const errorHandling = (
-    error: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+import AppError from './AppError.js';
+
+const errorHandling = (error, req, res, next) => {
     if (error instanceof AppError) {
         return res.status(500).json({
             status: 'API Error',
@@ -23,7 +18,7 @@ const errorHandling = (
     });
 };
 
-const error404 = (req: Request, res: Response) => {
+const error404 = (req, res) => {
     const status = 404;
     const message = 'Pagina nao encontrada.';
 
