@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config({
-  path: process.env.NODE_ENV !== 'development' ? '.env' : '.env.dev',
-});
+dotenv.config();
 
 export default {
   secret: process.env.APP_SECRET,
