@@ -4,7 +4,6 @@ import ListProductService from '../services/ListProductService';
 export default class ProductController {
   public async list(request: Request, response: Response) {
     const listProductService = new ListProductService();
-    console.log(await listProductService.execute());
     return response.json(await listProductService.execute());
   }
 
