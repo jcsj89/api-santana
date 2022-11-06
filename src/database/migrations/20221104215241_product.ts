@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string('category');
     table.integer('estoque');
     table.integer('discount');
-    table.string('fispq');
+    table.string('fispq'); // url do arquivo ou tabela dedicada?
     table.string('tags');
     table.string('peso');
     table.string('cor');

@@ -1,23 +1,58 @@
-class Product {
+interface IProduct {
   id: string;
-  name: string;
-  price: number; // preco do produto
-  description: string;
-  photos: string; // deve permitir salvar varias fotos
-  category: string; // categoria do produto
-  discount: number; // desconto no preco
-  fispq: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site
   active: boolean; // esta ativo?
-  tags: string; // tags relacionadas ao produto, usado para buscas
-  peso: number;
-  cor: string;
-  embalagens: string; // embalagens de venda
-  ean: string; // codigo de barras
-  validade: string;
-  marca: string;
-  fabricante: string;
-  estoque: number; // estoque do produto
-  tamanho: string;
+  name: string;
+  description: string;
+  codeProd: string;
+  codeNCM: string;
+  codeEAN: string; // codigo de barras
+  price: number; // preco do produto
+  discount: number; // desconto no preco
+  inventory: number; // estoque do produto
+  inventoryCost: number; // estoque do produto
+  category: string; // categoria do produto
+  density: number; // densidade do produto
+  freeWeight: number;
+  grossWeight: number;
+  color: string;
+  validity: string; // validade
+  // tags relacionadas ao produto
+  tags: string; // tabela
+  // embalagens de venda
+  embalagem_id: string; // tabela N:1
+  brand: string; // marca
+  producer: string; // fabricante
+  size: string;
+  fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
+  photos: string; // tabela 1:N
+}
+class Product implements IProduct {
+  id: string;
+  active: boolean; // esta ativo?
+  name: string;
+  description: string;
+  codeProd: string;
+  codeNCM: string;
+  codeEAN: string; // codigo de barras
+  price: number; // preco do produto
+  discount: number; // desconto no preco
+  inventory: number; // estoque do produto
+  inventoryCost: number; // estoque do produto
+  category: string; // categoria do produto
+  density: number; // densidade do produto
+  freeWeight: number;
+  grossWeight: number;
+  color: string;
+  validity: string; // validade
+  // tags relacionadas ao produto
+  tags: string; // tabela
+  // embalagens de venda
+  embalagem_id: string; // tabela N:1
+  brand: string; // marca
+  producer: string; // fabricante
+  size: string;
+  fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
+  photos: string; // tabela 1:N
 
   constructor() {
     this.active = true;
@@ -28,17 +63,22 @@ class Product {
     this.photos = '';
     this.category = '';
     this.discount = 0;
-    this.fispq = '';
+    this.fispq_id = '';
     this.tags = '';
-    this.peso = 0;
-    this.cor = '';
-    this.embalagens = '';
-    this.ean = '';
-    this.validade = '';
-    this.marca = '';
-    this.fabricante = '';
-    this.estoque = 0;
-    this.tamanho = '';
+    this.freeWeight = 0;
+    this.grossWeight = 0;
+    this.color = '';
+    this.embalagem_id = '';
+    this.codeEAN = '';
+    this.validity = '';
+    this.brand = '';
+    this.producer = '';
+    this.inventory = 0;
+    this.inventoryCost = 0;
+    this.size = '';
+    this.codeProd = '';
+    this.codeNCM = '';
+    this.density = 0;
   }
 }
 
