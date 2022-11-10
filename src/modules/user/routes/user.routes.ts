@@ -6,7 +6,7 @@ import isAuthorized from '../../../middleware/isAuthorized';
 const userController = new UserController();
 const userRoutes = Router();
 
-userRoutes.get('/users', userController.list);
+userRoutes.get('/users', isAuthenticated, isAuthorized, userController.list);
 userRoutes.post('/users', userController.create);
 userRoutes.put(
   '/users/:id',

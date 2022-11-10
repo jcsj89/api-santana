@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
+import ListProductService from '../services/ListProductService';
 
 export default class ProductController {
   public async list(request: Request, response: Response) {
-    return 'list of products';
+    const listProductService = new ListProductService();
+    return response.json(await listProductService.execute());
   }
 
   public async create(request: Request, response: Response) {

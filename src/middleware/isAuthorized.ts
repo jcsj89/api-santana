@@ -26,6 +26,8 @@ export default async function (
 
   const method = request.method;
   const url = request.route.path;
+  console.log(method);
+  console.log(url);
 
   for (const role of roles) {
     if (role.action === method && role.endpoint === url) {

@@ -4,8 +4,7 @@ import sessionRoutes from '../modules/security/session/routes/session.route';
 import roleRoutes from '../modules/security/role/routes/role.routes';
 import userRoleRoutes from '../modules/security/user-role/routes/userRole.routes';
 import AppError from '../middleware/AppError';
-import productRoutes from '../modules/product/routes/product.routes'
-
+import productRoutes from '../modules/product/routes/product.routes';
 
 const routes = Router();
 
