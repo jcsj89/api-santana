@@ -31,21 +31,21 @@ class Product implements IProduct {
   active: boolean; // esta ativo?
   name: string;
   description: string;
-  codeProd: string;
+  codeProd: string; // unique
   codeNCM: string;
   codeEAN: string; // codigo de barras
   price: number; // preco do produto
   discount: number; // desconto no preco
   inventory: number; // estoque do produto
   inventoryCost: number; // estoque do produto
-  category: string; // categoria do produto
+  category: string; // categoria do produto - outra tabela
   density: number; // densidade do produto
   freeWeight: number;
   grossWeight: number;
-  color: string;
+  color: string; // pode ser enum
   validity: string; // validade
   // tags relacionadas ao produto
-  tags: string; // tabela
+  tags: string; // tabela externa ou string separada por virgula
   // embalagens de venda
   embalagem_id: string; // tabela N:1
   brand: string; // marca
