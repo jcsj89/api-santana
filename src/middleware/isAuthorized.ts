@@ -13,6 +13,8 @@ export default async function (
 
   if (user && user.isAdmin) {
     console.log('user: ', user);
+    console.log('Usuario eh admin');
+
     console.log('router.path', request.route.path);
     return next();
   }
