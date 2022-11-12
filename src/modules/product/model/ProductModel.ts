@@ -1,13 +1,15 @@
 interface IProduct {
   id: string;
   active: boolean; // esta ativo?
-  name: string;
-  description: string;
+  description: string; // nome do produto
+  detailedProductDescription: string;
   codeProd: string;
   codeNCM: string;
   codeEAN: string; // codigo de barras
   price: number; // preco do produto
-  discount: number; // desconto no preco
+  priceUnit: number;
+  discountValue: number; // desconto no preco
+  discountPercent: number; // desconto no preco
   inventory: number; // estoque do produto
   inventoryCost: number; // estoque do produto
   category: string; // categoria do produto
@@ -16,26 +18,32 @@ interface IProduct {
   grossWeight: number;
   color: string;
   validity: string; // validade
-  // tags relacionadas ao produto
-  tags: string; // tabela
+  //
+  // relacionamentos
+  //
+  tags: string; // tabela tags relacionadas ao produto
   // embalagens de venda
   embalagem_id: string; // tabela N:1
   brand: string; // marca
   producer: string; // fabricante
   size: string;
   fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
-  photos: string; // tabela 1:N
+  photos: string[]; // tabela 1:N
 }
 class Product implements IProduct {
   id: string;
   active: boolean; // esta ativo?
-  name: string;
   description: string;
+
+  detailedProductDescription: string;
+
   codeProd: string; // unique
   codeNCM: string;
   codeEAN: string; // codigo de barras
   price: number; // preco do produto
-  discount: number; // desconto no preco
+  priceUnit: number;
+  discountValue: number; // desconto no preco
+  discountPercent: number; // desconto no preco
   inventory: number; // estoque do produto
   inventoryCost: number; // estoque do produto
   category: string; // categoria do produto - outra tabela
@@ -52,17 +60,19 @@ class Product implements IProduct {
   producer: string; // fabricante
   size: string;
   fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
-  photos: string; // tabela 1:N
+  photos: string[]; // tabela 1:N
 
   constructor() {
     this.active = true;
     this.id = '';
-    this.name = '';
+    this.discountPercent = 0;
+    this.discountValue = 0;
     this.price = 0;
+    this.priceUnit = 0;
     this.description = '';
-    this.photos = '';
+    this.detailedProductDescription = '';
+    this.photos = [];
     this.category = '';
-    this.discount = 0;
     this.fispq_id = '';
     this.tags = '';
     this.freeWeight = 0;
