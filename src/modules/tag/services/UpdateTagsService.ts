@@ -1,6 +1,6 @@
-import knex from '../../../../database/connection';
+import knex from '../../../database/connection';
 import Role from '../model/Tags';
-import AppError from '../../../../middleware/AppError';
+import AppError from '../../../middleware/AppError';
 import validator from 'validator';
 
 interface IRequest {
