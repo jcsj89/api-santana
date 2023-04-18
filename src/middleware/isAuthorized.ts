@@ -13,7 +13,7 @@ export default async function (
 
   if (user && user.isAdmin) {
     console.log('user: ', user);
-    console.log('Usuario eh admin');
+    console.log('Usuario admin ');
     console.log('router.path', request.route.path);
     return next();
   }
@@ -27,6 +27,7 @@ export default async function (
 
   const method = request.method;
   const url = request.route.path;
+
   console.log(method);
   console.log(url);
 
