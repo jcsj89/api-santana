@@ -29,6 +29,7 @@ export default async function (
   const url = request.route.path;
 
   console.log(method);
+
   console.log(url);
 
   for (const role of roles) {

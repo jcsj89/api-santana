@@ -13,22 +13,22 @@ import './database/connection';
 import routes from './routes';
 import AppError from './middleware/AppError';
 
-//CONSTANTS
+// CONSTANTS
 const PORT = process.env.PORT || 3333;
 
-//EXEC
+// EXEC
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//SETUP CORS
+// SETUP CORS
 app.use(cors());
 
 // STATIC FOLDERS
 app.use('/public', express.static(path.resolve(__dirname, '..', 'public')));
 
-//DATABASE CONECTION
+// DATABASE CONECTION
 const isProduction = process.env.NODE_ENV === 'production';
 
 if (isProduction) {
@@ -39,7 +39,7 @@ if (isProduction) {
   // const teste = require('./tests/knex.test');
 }
 
-//SETUP ROUTES
+// SETUP ROUTES
 app.use(routes);
 
 // TRATAMENTO DE ERROS

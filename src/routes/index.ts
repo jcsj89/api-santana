@@ -19,7 +19,7 @@ routes.get('/', (_, response) => {
   response.json({
     project: 'API Santana',
     description:
-      'Esta api faz o acesso, permissoes e configuracoes do site do CDP',
+      'Esta api faz o acesso, permissoes e configuracoes do site Santana',
     message: 'Just do it!',
   });
 });
