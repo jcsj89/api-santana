@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "keywords": [],
+  "keywords": [
+    "API",
+    "MVC"
+  ],
   "author": "Ze Santanna",
   "license": "ISC",
-  "engines": { "node": ">= 18" },
+  "engines": {
+    "node": ">= 18"
+  },
   "scripts": {
     "nodemon:dev": "export NODE_ENV=development && nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
     "dev": "export NODE_ENV=development && ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/server.ts",

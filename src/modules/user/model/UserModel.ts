@@ -1,10 +1,12 @@
+import { v4 } from 'uuid';
+
 interface IUser {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password_hash: string;
-  isActive: boolean;
-  isAdmin: boolean;
+  isActive?: boolean;
+  isAdmin?: boolean;
 }
 
 class User {
@@ -16,7 +18,7 @@ class User {
   isAdmin: boolean;
 
   constructor({
-    id,
+    id = v4(),
     name,
     email,
     password_hash,
@@ -29,6 +31,23 @@ class User {
     this.password_hash = password_hash;
     this.isActive = isActive;
     this.isAdmin = isAdmin;
+  }
+
+  // this function parse User to JSON format
+  static toJSON(user: User) {
+    return JSON.stringify(user);
+  }
+
+  // parse User to object data
+  static toData(user: User) {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      password_hash: user.password_hash,
+      isActive: user.isActive,
+      isAdmin: user.isAdmin,
+    };
   }
 }
 

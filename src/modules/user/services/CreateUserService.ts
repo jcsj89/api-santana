@@ -1,8 +1,8 @@
-import knex from '../../../database/connection';
-import User from '../model/UserModel';
-import { v4 } from 'uuid';
 import bcrypt from 'bcrypt';
+// import { v4 } from 'uuid';
+import knex from '../../../database/connection';
 import AppError from '../../../middleware/AppError';
+import User from '../model/UserModel';
 
 interface IRequest {
   name: string;
@@ -23,14 +23,16 @@ export default class CreateUserService {
 
     const password_hash = await bcrypt.hash(password, 8);
 
-    const user: User = {
-      id: v4(),
-      name,
-      email,
-      password_hash,
-      isActive: true,
-      isAdmin: false,
-    };
+    // const user2: User = {
+    //   id: v4(),
+    //   name,
+    //   email,
+    //   password_hash,
+    //   isActive: true,
+    //   isAdmin: false,
+    // };
+
+    const user: User = new User({ name, email, password_hash });
 
     try {
       await knex('users').insert(user);
