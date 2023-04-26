@@ -17,8 +17,11 @@
     <img src="public/images/javascript.svg" alt="Logo" width="80" height="80" style="padding: 0px 25px">
   </a>
 
-  <h2 align="center" style="color : red">API SANTANA</h2>
-  <code style="color : red">text</code>
+  <h2 align="center" style="color : orange">API SANTANA</h2>
+
+§red[Text]
+
+$orange[Text]
 
   <p align="center">
     A real project with knowledge objective!
