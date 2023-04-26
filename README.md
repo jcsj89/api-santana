@@ -19,10 +19,6 @@
 
   <h2 align="center" style="color : orange">API SANTANA</h2>
 
-§red[Text]
-
-$orange[Text]
-
   <p align="center">
     A real project with knowledge objective!
     <br />
