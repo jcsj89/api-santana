@@ -1,4 +1,4 @@
-import AppError from '../../../../middleware/AppError';
+import AppError from '../../../../middlewares/AppError';
 import knex from '../../../../database/connection';
 import Role from '../model/Role';
 

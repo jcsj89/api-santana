@@ -179,6 +179,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Jose Carlos Sant'Anna - Twitter [@Ze_Ca_](https://twitter.com/Ze_Ca_)
 
+Linkedin - <https://www.linkedin.com/in/josecarlossantanna/>
+
 Email - jcsj2010@gmail.com
 
 Project Link: [https://github.com/jcsj89/api-santana](https://github.com/jcsj89/api-santana)

@@ -1,6 +1,6 @@
 import knex from '../../../database/connection';
 import User from '../model/UserModel';
-import AppError from '../../../middleware/AppError';
+import AppError from '../../../middlewares/AppError';
 import validator from 'validator';
 
 interface IRequest {

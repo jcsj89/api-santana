@@ -4,7 +4,7 @@ interface ITags {
   productId: string;
 }
 
-class Role {
+class Tag {
   id: string;
   tagName: string;
   productId: string;
@@ -16,4 +16,4 @@ class Role {
   }
 }
 
-export default Role;
+export default Tag;

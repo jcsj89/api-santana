@@ -1,7 +1,7 @@
 import knex from '../../../database/connection';
 import Tags from '../model/Tags';
 import { v4 } from 'uuid';
-import AppError from '../../../middleware/AppError';
+import AppError from '../../../middlewares/AppError';
 
 interface IRequest {
   tagName: string;

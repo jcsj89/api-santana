@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 // import { v4 } from 'uuid';
 import knex from '../../../database/connection';
-import AppError from '../../../middleware/AppError';
+import AppError from '../../../middlewares/AppError';
 import User from '../model/UserModel';
 
 interface IRequest {

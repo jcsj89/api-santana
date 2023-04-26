@@ -1,4 +1,4 @@
-import AppError from '../middleware/AppError';
+import AppError from './AppError';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import auth from '../config/auth';

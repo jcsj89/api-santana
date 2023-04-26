@@ -1,6 +1,6 @@
 import knex from '../../../database/connection';
-import Role from '../model/Tags';
-import AppError from '../../../middleware/AppError';
+import Tag from '../model/Tags';
+import AppError from '../../../middlewares/AppError';
 import validator from 'validator';
 
 interface IRequest {
@@ -18,17 +18,17 @@ export default class UpdateRoleService {
     description,
     action,
     endpoint,
-  }: IRequest): Promise<Role> {
+  }: IRequest): Promise<Tag> {
     // convert to upper case
     role = role.toLowerCase(); // users, roles, pages, etc...
     action = action.toUpperCase(); // GET, POST, PUT, DELETE, etc...
 
     // Valida o id no formato uuid
     if (!validator.isUUID(id))
-      throw new AppError('UpdateRoleService:: Id is not valid.');
+      throw new AppError('UpdateTagService:: Id is not valid.');
 
     // busca a role com o id
-    const hasRole: Role = await knex('roles').where({ id }).first();
+    const hasRole: Tag = await knex('roles').where({ id }).first();
 
     // valida se encontrou a role no banco
     if (!hasRole) {
@@ -48,7 +48,7 @@ export default class UpdateRoleService {
     }
 
     // busca todas as roles com o mesmo nome passado no parametro 'role'
-    const roles: Role[] = await knex('roles').where({ role });
+    const roles: Tag[] = await knex('roles').where({ role });
 
     // nao encontrou outra role com o mesmo nome, entao atribui e altera
     if (roles.length === 0) hasRole.role = role;

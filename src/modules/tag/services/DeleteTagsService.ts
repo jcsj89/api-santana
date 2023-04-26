@@ -1,7 +1,7 @@
 import knex from '../../../database/connection';
 import Role from '../model/Tags';
 import { v4 } from 'uuid';
-import AppError from '../../../middleware/AppError';
+import AppError from '../../../middlewares/AppError';
 import validator from 'validator';
 
 interface IRequest {

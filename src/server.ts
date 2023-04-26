@@ -11,7 +11,7 @@ import path from 'path';
 
 import './database/connection';
 import routes from './routes';
-import AppError from './middleware/AppError';
+import AppError from './middlewares/AppError';
 
 // CONSTANTS
 const PORT = process.env.PORT || 3333;
@@ -53,7 +53,10 @@ app.use((error: Error, __: Request, response: Response, _: NextFunction) => {
 
   return response.status(500).json({
     status: 'error',
-    message: 'Internal server error' + error,
+    message: 'Internal server error',
+    errorName: error.name,
+    error: error.message,
+    errorStack: error.stack,
   });
 });
 
