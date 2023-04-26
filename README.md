@@ -36,7 +36,7 @@
     <img src="public/images/javascript.svg" alt="Logo" width="80" height="80" style="padding: 0px 10px">
   </a>
 
-  <h2 align="center" style="color: #FC4F00">API SANTANA</h2>
+  <h2 align="center" style="color:orange">API SANTANA</h2>
 
   <p align="center">
     A real project with knowledge objective!
@@ -172,7 +172,7 @@ Project Link: [https://github.com/jcsj89/api-santana](https://github.com/jcsj89/
 
 <!-- ACKNOWLEDGMENTS -->
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
