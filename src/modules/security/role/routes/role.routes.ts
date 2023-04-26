@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import RoleController from '../controller/RoleController';
-import isAuthenticated from '../../../../middleware/isAuthenticated';
-import isAuthorized from '../../../../middleware/isAuthorized';
+import isAuthenticated from '../../../../middlewares/isAuthenticated';
+import isAuthorized from '../../../../middlewares/isAuthorized';
 
 const roleController = new RoleController();
 const roleRoutes = Router();
