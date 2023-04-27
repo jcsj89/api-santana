@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import AppError from './AppError';
 import knex from '../database/connection';
+import AppError from './AppError';
 
 export default async function (
   request: Request,
@@ -11,10 +11,12 @@ export default async function (
 
   if (!user) throw new AppError('User does not exist in the request.');
 
+  // check if user is admin, he has full access
   if (user && user.isAdmin) {
     console.log('user: ', user);
     console.log('Usuario admin ');
     console.log('router.path', request.route.path);
+    console.log('USER IS ADMIN - FULL ACCESS');
     return next();
   }
 
@@ -25,12 +27,12 @@ export default async function (
     .innerJoin('users', 'users.id', 'user_role.user_id')
     .where('users.id', '=', user.id);
 
+  // check whitch roles is owner user
   const method = request.method;
   const url = request.route.path;
-
-  console.log(method);
-
-  console.log(url);
+  console.log('roles: ', roles);
+  console.log('method: ', method);
+  console.log('url: ', url);
 
   for (const role of roles) {
     if (role.action === method && role.endpoint === url) {

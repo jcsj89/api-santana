@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import User from 'src/modules/user/model/UserModel';
+import validator from 'validator';
 import auth from '../../../../config/auth';
 import knex from '../../../../database/connection';
 import AppError from '../../../../middlewares/AppError';
@@ -15,8 +16,25 @@ interface IResponse {
   token: string;
 }
 
+// this is login service
 export default class CreateSessionService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
+    // check if email is valid and is a string
+    if (
+      (typeof email === 'string' && !validator.isEmail(email)) ||
+      typeof email !== 'string'
+    ) {
+      throw new AppError('Email is not valid');
+    }
+
+    if (
+      typeof password !== 'string' ||
+      password.length < 4 ||
+      password.length > 256
+    ) {
+      throw new AppError('Password is invalid.');
+    }
+
     const user: User = await knex
       .from('users')
       .select('*')

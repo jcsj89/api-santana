@@ -14,6 +14,9 @@ interface IRequest {
 }
 
 // this service can update any user properties alone
+// email
+// name needed length > 4
+// password length > 4
 export default class UpdateUserService {
   public async execute({
     id,
@@ -34,14 +37,7 @@ export default class UpdateUserService {
       throw new AppError('UpdateUserService:: User not exists.');
     }
 
-    const checkEmail = email || email !== undefined;
-
-    // console.log('checkEmail: ', checkEmail);
-    // console.log('email: ', email);
-    // console.log('email.length: ', email.length);
-    // console.log(typeof email === 'string');
-
-    // verifica se o email é valido
+    // faz verificacoes sobre o email - valido - exists - etc
     if (typeof email === 'string' && validator.isEmail(email)) {
       // validacao do email, caso encontre o mesmo email em outro usuario
 
@@ -55,18 +51,24 @@ export default class UpdateUserService {
       hasUser.email = email;
     }
 
-    // password.length < 4 ||  name.length < 4
+    // faz verificacoes sobre o nome - maior que 0 e menor que 256 caracteres
+    typeof name === 'string' && name.length > 0 && name.length < 256
+      ? (hasUser.name = name)
+      : null;
 
     // valida o tamanho do password
+    // password.length < 4 ||  name.length < 4
     // fazer um servico proprio para alteracao da senha e do status admin do usuario
-    password.length >= 4
+    typeof password === 'string' && password.length >= 4
       ? (hasUser.password_hash = await bcrypt.hash(password, 8))
       : null;
 
-    // atribui email e status e name
-    isActive === true ? (hasUser.isActive = true) : (hasUser.isActive = false);
-
-    hasUser.name = name;
+    // check and change user status active or not
+    typeof isActive === 'boolean'
+      ? isActive === true
+        ? (hasUser.isActive = true)
+        : (hasUser.isActive = false)
+      : null;
 
     try {
       //atualiza o user depois das validacoes
