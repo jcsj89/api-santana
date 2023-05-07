@@ -1,10 +1,11 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable('tags', (table) => {
+  return knex.schema.createTable('tags_objects', (table) => {
     table.uuid('id').primary().unique();
-    table.string('tagName');
-    table.string('description');
+    table.uuid('tags_id').references('id').inTable('tags');
+    table.uuid('object_id'); // some object id
+    table.string('object_table_name'); // name of table
 
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());
@@ -13,5 +14,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTableIfExists('tags');
+  return knex.schema.dropTableIfExists('tags_objects');
 }

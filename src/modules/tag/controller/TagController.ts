@@ -4,7 +4,7 @@ import CreateRoleService from '../services/CreateTagsService';
 import UpdateRoleService from '../services/UpdateTagsService';
 import DeleteRoleService from '../services/DeleteTagsService';
 
-export default class RoleController {
+export default class TagController {
   public async index(request: Request, response: Response): Promise<Response> {
     const service = new ListRoleService();
 

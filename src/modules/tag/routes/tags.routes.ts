@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import RoleController from '../controller/RoleController';
+import RoleController from '../controller/TagController';
 import isAuthenticated from '../../../middlewares/isAuthenticated';
 import isAuthorized from '../../../middlewares/isAuthorized';
 
