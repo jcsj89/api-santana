@@ -1,19 +1,14 @@
 import { Router } from 'express';
-import RoleController from '../controller/TagController';
 import isAuthenticated from '../../../middlewares/isAuthenticated';
 import isAuthorized from '../../../middlewares/isAuthorized';
+import TagController from '../controller/TagController';
 
-const roleController = new RoleController();
-const roleRoutes = Router();
+const tagController = new TagController();
+const tagRoutes = Router();
 
-roleRoutes.get('/roles', isAuthenticated, isAuthorized, roleController.index);
-roleRoutes.post('/roles', roleController.create);
-roleRoutes.put(
-  '/roles/:id',
-  isAuthenticated,
-  isAuthorized,
-  roleController.update,
-);
-roleRoutes.delete('/roles/:id', roleController.delete);
+tagRoutes.get('/tags', isAuthenticated, isAuthorized, tagController.index);
+tagRoutes.post('/tags', tagController.create);
+tagRoutes.put('/tags/:id', isAuthenticated, isAuthorized, tagController.update);
+tagRoutes.delete('/tags/:id', tagController.delete);
 
-export default roleRoutes;
+export default tagRoutes;

@@ -3,33 +3,35 @@ interface ITags {
   id?: string;
   tagName: string;
   description: string;
-  object_id: string;
-  object_table_name: string;
 }
 
 class Tag {
   id: string;
   tagName: string;
   description: string;
-  object_id: string;
-  object_table_name: string;
 
-  constructor({
-    id,
-    tagName,
-    description,
-    object_id,
-    object_table_name,
-  }: ITags) {
+  constructor({ id, tagName, description }: ITags) {
     this.id = id || v4();
     this.tagName = tagName;
     this.description = description || 'description default';
-    this.object_id = object_id;
-    this.object_table_name = object_table_name;
   }
 
-  static create({ tagName, description, object_id, object_table_name }: ITags) {
-    return new Tag({ tagName, description, object_id, object_table_name });
+  static create({ tagName, description }: ITags) {
+    return new Tag({ tagName, description });
+  }
+
+  // this function parse User to JSON format
+  static toJSON(tag: Tag) {
+    return JSON.stringify(tag);
+  }
+
+  // parse Tag to object data
+  static toData(tag: Tag) {
+    return {
+      id: tag.id,
+      tagName: tag.tagName,
+      description: tag.description,
+    };
   }
 }
 

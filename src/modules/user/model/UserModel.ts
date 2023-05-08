@@ -49,6 +49,17 @@ class User {
       isAdmin: user.isAdmin,
     };
   }
+
+  static create({ id, name, email, password_hash, isActive, isAdmin }: IUser) {
+    return new User({
+      id: v4(),
+      name,
+      email,
+      password_hash,
+      isActive: true,
+      isAdmin: false,
+    });
+  }
 }
 
 export default User;
