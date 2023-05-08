@@ -1,4 +1,3 @@
-import knex from '../../../database/connection';
 import AppError from '../../../middlewares/AppError';
 import Tag from '../model/Tags';
 
@@ -74,8 +73,6 @@ export default class TagService {
     return Tag.create({
       tagName: 'asdasdasdasd',
       description: 'asd',
-      object_id: 'asd',
-      object_table_name: 'asd',
     });
   }
 }

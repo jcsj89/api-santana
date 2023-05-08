@@ -14,8 +14,8 @@ interface IProduct {
   inventoryCost: number; // custo do estoque do produto
   category: string; // categoria do produto
   density: number; // densidade do produto
-  freeWeight: number;
-  grossWeight: number;
+  freeWeight: number; // peso livre
+  grossWeight: number; //peso bruto
   color: string;
   validity: string; // validade
   //
