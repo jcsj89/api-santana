@@ -11,7 +11,7 @@ interface IProduct {
   discountValue: number; // desconto no preco
   discountPercent: number; // desconto no preco
   inventory: number; // estoque do produto
-  inventoryCost: number; // estoque do produto
+  inventoryCost: number; // custo do estoque do produto
   category: string; // categoria do produto
   density: number; // densidade do produto
   freeWeight: number;
