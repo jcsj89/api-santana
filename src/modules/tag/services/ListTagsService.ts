@@ -1,13 +1,13 @@
-import AppError from '../../../middlewares/AppError';
 import knex from '../../../database/connection';
+import AppError from '../../../middlewares/AppError';
 import Tags from '../model/Tags';
 
-export default class ListRoleService {
+export default class ListTagsService {
   public async execute(): Promise<Tags[]> {
-    const roles: Tags[] = await knex('tags').select('*');
+    const tags: Tags[] = await knex('tags').select('*');
 
-    if (roles.length < 1) throw new AppError('Tags not found.');
+    if (tags.length < 1) throw new AppError('Tags not found.');
 
-    return roles;
+    return tags;
   }
 }

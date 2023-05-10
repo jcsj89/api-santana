@@ -1,29 +1,27 @@
 import { Request, Response } from 'express';
-import ListTagsService from '../services/ListTagsService';
 import CreateTagsService from '../services/CreateTagsService';
-import UpdateTagsService from '../services/UpdateTagsService';
 import DeleteTagsService from '../services/DeleteTagsService';
+import ListTagsService from '../services/ListTagsService';
+import UpdateTagsService from '../services/UpdateTagsService';
 
 export default class TagController {
   // get all Tags
   public async index(request: Request, response: Response): Promise<Response> {
-    // role service
+    // tags service
     const service = new ListTagsService();
 
-    const roles = await service.execute();
+    const tags = await service.execute();
 
-    return response.json(roles);
+    return response.json(tags);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { tagName, object_id, description, object_table_name } = request.body;
+    const { tagName, description } = request.body;
     const service = new CreateTagsService();
 
     const newTags = {
       tagName,
-      object_id,
       description,
-      object_table_name,
     };
 
     const inserted = await service.execute(newTags);
@@ -33,28 +31,26 @@ export default class TagController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const service = new UpdateTagsService();
-    const { tagName, object_id, description, object_table_name } = request.body;
+    const { tagName, description } = request.body;
     const { id } = request.params;
 
     const newTags = {
       id,
       tagName,
-      object_id,
       description,
-      object_table_name,
     };
 
-    const roleUpdated = await service.execute(newTags);
+    const tagsUpdated = await service.execute(newTags);
 
-    return response.json(roleUpdated);
+    return response.json(tagsUpdated);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const service = new DeleteTagsService();
     const { id } = request.params;
 
-    const roleUpdated = await service.execute({ id });
+    const tagsUpdated = await service.execute({ id });
 
-    return response.json(roleUpdated);
+    return response.json(tagsUpdated);
   }
 }

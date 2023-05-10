@@ -1,5 +1,5 @@
 import knex from '../../../database/connection';
-import Role from '../model/Tags';
+import Tags from '../model/Tags';
 import { v4 } from 'uuid';
 import AppError from '../../../middlewares/AppError';
 import validator from 'validator';
@@ -12,24 +12,24 @@ interface IResponse {
   message: string;
 }
 
-export default class DeleteRoleService {
+export default class DeleteTagsService {
   public async execute({ id }: IRequest): Promise<IResponse> {
     // Valida o id no formato uuid
     if (!validator.isUUID(id))
-      throw new AppError('Delete Role Service:: Id is not valid.');
+      throw new AppError('Delete Tags Service:: Id is not valid.');
 
-    const hasRole: Role = await knex('roles').where({ id }).first();
+    const hasTags: Tags = await knex('tags').where({ id }).first();
 
-    if (!hasRole) throw new AppError('Role not exists.');
+    if (!hasTags) throw new AppError('Tags not exists.');
 
     try {
-      await knex('roles').where({ id: hasRole.id }).delete();
+      await knex('tags').where({ id: hasTags.id }).delete();
     } catch (error) {
       console.log(error); //tratar oque fazer com o erro depois, se vai logar ou fazer nada
-      throw new AppError('Delete Role Service::error update knex');
+      throw new AppError('Delete Tags Service:: error delete knex');
     }
 
-    const message = { message: 'Role deleted.' };
+    const message = { message: 'Tags deleted.' };
 
     return message;
   }

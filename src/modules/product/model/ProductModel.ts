@@ -21,7 +21,7 @@ interface IProduct {
   //
   // relacionamentos
   //
-  tags: string; // tabela tags relacionadas ao produto
+  tags: string[]; // tabela tags relacionadas ao produto
   // embalagens de venda
   embalagem_id: string; // tabela N:1
   brand: string; // marca
@@ -34,9 +34,7 @@ class Product implements IProduct {
   id: string;
   active: boolean; // esta ativo?
   description: string;
-
   detailedProductDescription: string;
-
   codeProd: string; // unique
   codeNCM: string;
   codeEAN: string; // codigo de barras
@@ -53,7 +51,7 @@ class Product implements IProduct {
   color: string; // pode ser enum
   validity: string; // validade
   // tags relacionadas ao produto
-  tags: string; // tabela externa ou string separada por virgula
+  tags: string[]; // tabela externa ou string separada por virgula
   // embalagens de venda
   embalagem_id: string; // tabela N:1
   brand: string; // marca
@@ -74,7 +72,7 @@ class Product implements IProduct {
     this.photos = [];
     this.category = '';
     this.fispq_id = '';
-    this.tags = '';
+    this.tags = [];
     this.freeWeight = 0;
     this.grossWeight = 0;
     this.color = '';

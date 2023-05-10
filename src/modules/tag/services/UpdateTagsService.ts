@@ -4,12 +4,13 @@ import Tag from '../model/Tags';
 interface IRequest {
   id: string;
   tagName: string;
+  description: string;
 }
 
 export default class TagService {
-  public async execute({ id, tagName }: IRequest): Promise<Tag> {
-    // // convert to upper case
-    // tagName = tagName.toLowerCase(); // users, roles, pages, etc...
+  public async execute({ id, tagName, description }: IRequest): Promise<Tag> {
+    // convert to upper case
+    tagName = tagName.toLowerCase(); // users, roles, pages, etc...
 
     // // Valida o id no formato uuid
     // if (!validator.isUUID(id))
