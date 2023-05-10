@@ -1,3 +1,5 @@
+import knex from 'knex';
+import validator from 'validator';
 import AppError from '../../../middlewares/AppError';
 import Tag from '../model/Tags';
 
@@ -10,70 +12,57 @@ interface IRequest {
 export default class TagService {
   public async execute({ id, tagName, description }: IRequest): Promise<Tag> {
     // convert to upper case
-    tagName = tagName.toLowerCase(); // users, roles, pages, etc...
+    tagName = tagName.toLowerCase();
 
-    // // Valida o id no formato uuid
-    // if (!validator.isUUID(id))
-    //   throw new AppError('UpdateTagService:: Id is not valid.');
+    console.log(tagName, description);
+    // Valida o id no formato uuid
+    if (!validator.isUUID(id))
+      throw new AppError('UpdateTagService:: Id is not valid.');
 
-    // // busca a role com o id
-    // const hasRole: Tag = await knex('roles').where({ id }).first();
+    // busca a tag com o id
+    const hasTag: Tag = await knex('tags').where({ id }).first();
 
-    // // valida se encontrou a role no banco
-    // if (!hasRole) {
-    //   throw new AppError('TagService:: Role not exists.');
-    // }
-    // console.log(action, endpoint);
-    // //valida o tamanho de role e description
-    // if (
-    //   role.length < 4 ||
-    //   description.length < 4 ||
-    //   action.length < 3 ||
-    //   endpoint.length < 4
-    // ) {
-    //   throw new AppError(
-    //     'Update Role Service:: role or description or action or endpoint is not valid.',
-    //   );
-    // }
+    // valida se encontrou a tag no banco
+    if (!hasTag) {
+      throw new AppError('TagService:: Tag not exists.');
+    }
 
-    // // busca todas as roles com o mesmo nome passado no parametro 'role'
-    // const roles: Tag[] = await knex('roles').where({ role });
+    //valida o tamanho de tag e description
 
-    // // nao encontrou outra role com o mesmo nome, entao atribui e altera
-    // if (roles.length === 0) hasRole.role = role;
+    // validations
+    if (
+      typeof tagName !== 'string' ||
+      (description && typeof description !== 'string')
+    ) {
+      throw new AppError('CREATE TAGS SERVICE:: Tags needs to be string.');
+    }
 
-    // if (roles.length !== 0) {
-    //   // action igual e endpoint igual, para nao ter duplicidade
-    //   for (const item of roles) {
-    //     if (
-    //       item.action === action &&
-    //       item.endpoint === endpoint &&
-    //       item.id !== id
-    //     ) {
-    //       console.log(item);
-    //       throw new AppError('Update Role Service:: Role alredy exists.');
-    //     }
-    //   }
+    // check length tagname
+    if (tagName.length < 2 || tagName.length > 64) {
+      throw new AppError(
+        'CREATE TAGS SERVICE:: Tags needs min two and max 64 caracters.',
+      );
+    }
 
-    //   hasRole.role = role;
-    //   hasRole.action = action;
-    //   hasRole.endpoint = endpoint;
+    //   hasTag.tag = tag;
+    //   hasTag.action = action;
+    //   hasTag.endpoint = endpoint;
     // }
 
     // // valida o tamanho do description
-    // description.length >= 4 ? (hasRole.description = description) : null;
-
+    // description.length >= 4 ? (hasTag.description = description) : null;
+    console.log(hasTag);
     try {
       // atualiza o user depois das validacoes
-      // await knex('roles').where({ id: hasRole.id }).update(hasRole);
+      // await knex('tags').where({ id: hasTag.id }).update(hasTag);
     } catch (error) {
       console.log(error); // tratar oque fazer com o erro depois, se vai logar ou fazer nada
-      throw new AppError('Update Role Service:: Error update knex');
+      throw new AppError('Update Tag Service:: Error update knex');
     }
 
     return Tag.create({
-      tagName: 'asdasdasdasd',
-      description: 'asd',
+      tagName: 'teste',
+      description: 'teste',
     });
   }
 }

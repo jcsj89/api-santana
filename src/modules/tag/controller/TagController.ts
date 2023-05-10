@@ -40,9 +40,11 @@ export default class TagController {
       description,
     };
 
-    const tagsUpdated = await service.execute(newTags);
+    console.log(newTags);
 
-    return response.json(tagsUpdated);
+    // const tagsUpdated = await service.execute(newTags);
+
+    return response.json({ tagsUpdated: 'a' });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
