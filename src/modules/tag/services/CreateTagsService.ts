@@ -1,6 +1,6 @@
 import knex from '../../../database/connection';
 import AppError from '../../../middlewares/AppError';
-import { default as Tags } from '../model/Tags';
+import Tags from '../model/Tags';
 
 interface IRequest {
   tagName: string;

@@ -16,6 +16,33 @@ class Tag {
     this.description = description || 'description default';
   }
 
+  // getter and setter
+  // validations
+  get getTagName() {
+    return this.tagName;
+  }
+
+  set setTagName(tagName: string) {
+    if (
+      typeof tagName === 'string' &&
+      (tagName.length > 2 || tagName.length < 64)
+    )
+      this.tagName = tagName;
+  }
+
+  get getDescription() {
+    return this.description;
+  }
+
+  set setDescription(description: string) {
+    if (
+      typeof description === 'string' &&
+      (description.length > 2 || description.length < 1024)
+    )
+      this.description = description;
+  }
+
+  // methods
   static create({ tagName, description }: ITags) {
     return new Tag({ tagName, description });
   }

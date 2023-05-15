@@ -19,12 +19,12 @@ export default class TagController {
     const { tagName, description } = request.body;
     const service = new CreateTagsService();
 
-    const newTags = {
+    const tag = {
       tagName,
       description,
     };
 
-    const inserted = await service.execute(newTags);
+    const inserted = await service.execute(tag);
 
     return response.json(inserted);
   }
@@ -34,25 +34,23 @@ export default class TagController {
     const { tagName, description } = request.body;
     const { id } = request.params;
 
-    const newTags = {
+    const tag = {
       id,
       tagName,
       description,
     };
 
-    console.log(newTags);
+    const tagsUpdated = await service.execute(tag);
 
-    // const tagsUpdated = await service.execute(newTags);
-
-    return response.json({ tagsUpdated: 'a' });
+    return response.json(tagsUpdated);
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const service = new DeleteTagsService();
     const { id } = request.params;
 
-    const tagsUpdated = await service.execute({ id });
+    const tagUpdated = await service.execute({ id });
 
-    return response.json(tagsUpdated);
+    return response.json(tagUpdated);
   }
 }

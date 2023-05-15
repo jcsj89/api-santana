@@ -8,7 +8,7 @@ const tagRoutes = Router();
 
 tagRoutes.get('/tags', isAuthenticated, isAuthorized, tagController.index);
 tagRoutes.post('/tags', tagController.create);
-tagRoutes.put('/tags/:id', isAuthenticated, isAuthorized, tagController.update);
+tagRoutes.put('/tags/:id', tagController.update);
 tagRoutes.delete('/tags/:id', tagController.delete);
 
 export default tagRoutes;
