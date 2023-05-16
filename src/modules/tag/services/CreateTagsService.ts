@@ -10,22 +10,8 @@ interface IRequest {
 export default class CreateTagsService {
   public async execute({ tagName, description }: IRequest): Promise<Tags> {
     // validations
-    if (
-      typeof tagName !== 'string' ||
-      (description && typeof description !== 'string')
-    ) {
-      throw new AppError('CREATE TAGS SERVICE:: Tags needs to be string.');
-    }
-
-    // check length tagname
-    if (tagName.length < 2 || tagName.length > 64) {
-      throw new AppError(
-        'CREATE TAGS SERVICE:: Tags needs min two and max 64 caracters.',
-      );
-    }
-
     // convert tags to lower case
-    tagName = tagName.toLowerCase();
+    tagName ? (tagName = tagName.toLowerCase().trim()) : null;
 
     // find tags with same name
     const tagsByName: Tags[] = await knex

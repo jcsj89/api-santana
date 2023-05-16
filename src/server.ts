@@ -1,7 +1,9 @@
-import 'pg';
-import 'express-async-errors';
 import * as dotenv from 'dotenv';
+import 'express-async-errors';
+import 'pg';
 dotenv.config();
+
+import { errors } from 'celebrate';
 
 import express, { NextFunction, Request, Response } from 'express';
 
@@ -10,8 +12,8 @@ import cors from 'cors';
 import path from 'path';
 
 import './database/connection';
-import routes from './routes';
 import AppError from './middlewares/AppError';
+import routes from './routes';
 
 // CONSTANTS
 const PORT = process.env.PORT || 3333;
@@ -41,6 +43,8 @@ if (isProduction) {
 
 // SETUP ROUTES
 app.use(routes);
+
+app.use(errors()); // celebrate errors
 
 // TRATAMENTO DE ERROS
 app.use((error: Error, __: Request, response: Response, _: NextFunction) => {

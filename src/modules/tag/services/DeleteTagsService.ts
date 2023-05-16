@@ -1,8 +1,7 @@
-import knex from '../../../database/connection';
-import Tags from '../model/Tags';
-import { v4 } from 'uuid';
-import AppError from '../../../middlewares/AppError';
 import validator from 'validator';
+import knex from '../../../database/connection';
+import AppError from '../../../middlewares/AppError';
+import Tags from '../model/Tags';
 
 interface IRequest {
   id: string;

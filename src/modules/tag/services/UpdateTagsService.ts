@@ -15,29 +15,20 @@ export default class UpdateTagService {
     if (!validator.isUUID(id))
       throw new AppError('UpdateTagService:: Id is not valid.');
 
+    // check if exists one param
+    if (!tagName && !description) {
+      throw new AppError('TagService:: Tag or description needs exists.');
+    }
+
+    // set to lower case and trim spaces
+    tagName ? (tagName = tagName.toLowerCase().trim()) : null;
+
     // busca a tag com o id
     const hasTag: Tag = await knex('tags').where({ id }).first();
 
     // valida se encontrou a tag no banco
     if (!hasTag) {
       throw new AppError('TagService:: Tag not exists.');
-    }
-
-    // valida o tamanho de tag e description
-    // validations
-
-    if (
-      (tagName && typeof tagName !== 'string') ||
-      (description && typeof description !== 'string')
-    ) {
-      throw new AppError('CREATE TAGS SERVICE:: Tags needs to be string.');
-    }
-
-    // check length tagname
-    if (tagName && (tagName.length < 2 || tagName.length > 64)) {
-      throw new AppError(
-        'CREATE TAGS SERVICE:: Tags needs min two and max 64 caracters.',
-      );
     }
 
     // verifica se existe outra tag com mesmo nome e nao deixa alterar
@@ -52,21 +43,17 @@ export default class UpdateTagService {
         tagsWithDiffIds.forEach((tag) => {
           if (tag.tagName === tagName.toLowerCase())
             throw new AppError(
-              'UPDATE TAGS SERVICE:: Tags with same name already exists.',
+              'UPDATE TAGS SERVICE:: there is already a tag with the same name.',
             );
         });
       }
     }
 
     // add and convert to lower case
-    tagName ? (hasTag.tagName = tagName.toLowerCase()) : null;
+    tagName ? (hasTag.tagName = tagName) : null;
 
-    // // valida o tamanho do description
-    description && description.length >= 4 && description.length <= 1023
-      ? (hasTag.description = description)
-      : null;
-
-    console.log(hasTag);
+    // valida o tamanho do description
+    description ? (hasTag.description = description) : null;
 
     try {
       // atualiza o user depois das validacoes
