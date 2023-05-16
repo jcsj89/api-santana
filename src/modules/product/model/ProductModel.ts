@@ -1,6 +1,10 @@
+import { v4 } from 'uuid';
+
+// interface
 interface IProduct {
   id: string;
   active: boolean; // esta ativo?
+  showInWeb: boolean;
   description: string; // nome do produto
   detailedProductDescription: string;
   codeProd: string;
@@ -11,6 +15,7 @@ interface IProduct {
   discountValue: number; // desconto no preco
   discountPercent: number; // desconto no preco
   inventory: number; // estoque do produto
+  cost: number; // estoque do produto
   inventoryCost: number; // custo do estoque do produto
   category: string; // categoria do produto
   density: number; // densidade do produto
@@ -30,9 +35,18 @@ interface IProduct {
   fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
   photos: string[]; // tabela 1:N
 }
+
+/*    INFORMACOES SOBRE O PRODUTO
+  cada produto tem sua litragem para facilicitar um dia se tornar e-comerce
+  ex: ATIVADO 140 - 5 litros
+  ex: ATIVADO 140 - 200 litros
+  separando os produtos por embalagem
+*/
+
 class Product implements IProduct {
   id: string;
-  active: boolean; // esta ativo?
+  active: boolean; // esta ativo ?
+  showInWeb: boolean; // mostra no site, default is false ?
   description: string;
   detailedProductDescription: string;
   codeProd: string; // unique
@@ -42,6 +56,7 @@ class Product implements IProduct {
   priceUnit: number;
   discountValue: number; // desconto no preco
   discountPercent: number; // desconto no preco
+  cost: number; // estoque do produto
   inventory: number; // estoque do produto
   inventoryCost: number; // estoque do produto
   category: string; // categoria do produto - outra tabela
@@ -61,8 +76,9 @@ class Product implements IProduct {
   photos: string[]; // tabela 1:N
 
   constructor() {
+    this.id = v4();
     this.active = true;
-    this.id = '';
+    this.showInWeb = false;
     this.discountPercent = 0;
     this.discountValue = 0;
     this.price = 0;
@@ -81,6 +97,7 @@ class Product implements IProduct {
     this.validity = '';
     this.brand = '';
     this.producer = '';
+    this.cost = 0;
     this.inventory = 0;
     this.inventoryCost = 0;
     this.size = '';
