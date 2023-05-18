@@ -1,7 +1,7 @@
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable('product', (table) => {
+  return knex.schema.createTable('products', (table) => {
     table.uuid('id').primary().unique();
     table.boolean('active');
     table.boolean('showInWeb');
@@ -26,12 +26,12 @@ export async function up(knex: Knex): Promise<void> {
     table.decimal('freeWeight');
     table.decimal('grossWeight');
     // relationships
-    table.string('category'); // N : N
-    table.string('tags'); // N : N
     table.string('embalagem_id'); // N : 1
-    table.string('photos');
+    // table.string('category'); // N : N
+    // table.string('tags'); // N : N
+    // table.string('documents'); // 1 : N
+    // table.string('photos');
 
-    table.string('fispq_id'); // 1 : N
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
@@ -39,5 +39,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable('product');
+  return knex.schema.dropTable('products');
 }

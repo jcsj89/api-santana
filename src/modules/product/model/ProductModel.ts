@@ -2,9 +2,9 @@ import { v4 } from 'uuid';
 
 // interface
 interface IProduct {
-  id: string;
-  active: boolean; // esta ativo?
-  showInWeb: boolean;
+  id?: string;
+  active?: boolean; // esta ativo?
+  showInWeb?: boolean;
   description: string; // nome do produto
   detailedProductDescription: string;
   codeProd: string;
@@ -17,7 +17,7 @@ interface IProduct {
   inventory: number; // estoque do produto
   cost: number; // estoque do produto
   inventoryCost: number; // custo do estoque do produto
-  category: string; // categoria do produto
+  category?: string[]; // categoria do produto
   density: number; // densidade do produto
   freeWeight: number; // peso livre
   grossWeight: number; //peso bruto
@@ -29,11 +29,11 @@ interface IProduct {
   //
   // relacionamentos
   //
-  tags: string[]; // tabela tags relacionadas ao produto
-  // embalagens de venda
-  embalagem_id: string; // tabela N:1
-  documents: string[]; // deve permitir salvar documents ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
-  photos: string[]; // tabela 1:N
+  embalagem_id?: string; // tabela N:1 embalagens de venda
+  //
+  tags?: string[]; // N:N tabela tags relacionadas ao produto
+  documents?: string[]; // deve permitir salvar documents ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
+  photos?: string[]; // tabela 1:N
 }
 
 /*    INFORMACOES SOBRE O PRODUTO
@@ -45,7 +45,7 @@ interface IProduct {
   separando os produtos por embalagem
 */
 
-class Product implements IProduct {
+class Product {
   static STATUS = { ACTIVE: true, INACTIVE: false, SHOW: true, HIDE: false };
   id: string;
   active: boolean; // esta ativo ?
@@ -55,64 +55,143 @@ class Product implements IProduct {
   codeProd: string; // unique
   codeNCM: string;
   codeEAN: string; // codigo de barras
-  color: string; // pode ser enum
+  color: string; //
   validity: string; // validade
   size: string;
   price: number; // preco do produto
-  priceUnit: number;
+  priceUnit: number; //
   discountValue: number; // desconto no preco
   discountPercent: number; // desconto no preco
-  cost: number; // estoque do produto
-  inventory: number; // estoque do produto
-  inventoryCost: number; // estoque do produto
+  cost: number; // custo do produto - necessario realizar calculo pela formula
+  inventory: number; // qtd estoque do produto
+  inventoryCost: number; // custo do estoque de produto
   density: number; // densidade do produto
-  freeWeight: number;
-  grossWeight: number;
+  freeWeight: number; // peso liquido
+  grossWeight: number; // peso bruto
   // FUTURE RELS
   brand: string; // marca
   producer: string; // fabricante
-  supplier: string; // fornecedor
-
   // RELATIONSHIPS
   // tags relacionadas ao produto
-  tags: string[]; // N:N - tabela externa ou string separada por virgula
-  category: string; // N:N - categoria do produto - outra tabela
-  // embalagens de venda
-  embalagem_id: string; // tabela N:1
-  documents: string[]; // 1:N na tabela documents deve ter o id do produto
+  embalagem_id: string; // tabela N:1 embalagens de venda
+  //
+  category?: string[]; // N:N - categoria do produto - outra tabela
+  tags?: string[]; // N:N - tabela externa ou string separada por virgula
+  documents?: string[]; // 1:N na tabela documents deve ter o id do produto
   //deve permitir salvar documents ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
-  photos: string[]; // tabela 1:N
+  photos?: string[]; // tabela 1:N
 
-  constructor() {
+  constructor({
+    discountPercent = 0,
+    discountValue = 0,
+    price = 0,
+    priceUnit = 0,
+    description,
+    detailedProductDescription,
+    freeWeight = 0,
+    grossWeight = 0,
+    color,
+    embalagem_id,
+    codeEAN,
+    validity,
+    brand,
+    producer,
+    cost = 0,
+    inventory = 0,
+    inventoryCost = 0,
+    size,
+    codeProd,
+    codeNCM,
+    density = 0,
+    category = [],
+    tags,
+    documents,
+    photos,
+  }: IProduct) {
     this.id = v4();
     this.active = Product.STATUS.ACTIVE;
     this.showInWeb = Product.STATUS.HIDE;
-    this.discountPercent = 0;
-    this.discountValue = 0;
-    this.price = 0;
-    this.priceUnit = 0;
-    this.description = '';
-    this.detailedProductDescription = '';
-    this.category = '';
-    this.freeWeight = 0;
-    this.grossWeight = 0;
-    this.color = '';
-    this.embalagem_id = '';
-    this.codeEAN = '';
-    this.validity = '';
-    this.brand = '';
-    this.producer = '';
-    this.supplier = '';
-    this.cost = 0;
-    this.inventory = 0;
-    this.inventoryCost = 0;
-    this.size = '';
-    this.codeProd = '';
-    this.codeNCM = '';
-    this.density = 0;
-    this.tags = [];
-    this.documents = [];
-    this.photos = [];
+    this.discountPercent = discountPercent;
+    this.discountValue = discountValue;
+    this.price = price;
+    this.priceUnit = priceUnit;
+    this.description = description;
+    this.detailedProductDescription = detailedProductDescription;
+    this.category = category;
+    this.freeWeight = freeWeight;
+    this.grossWeight = grossWeight;
+    this.color = color;
+    this.embalagem_id = embalagem_id || '';
+    this.codeEAN = codeEAN;
+    this.validity = validity;
+    this.brand = brand;
+    this.producer = producer;
+    this.cost = cost;
+    this.inventory = inventory;
+    this.inventoryCost = inventoryCost;
+    this.size = size;
+    this.codeProd = codeProd;
+    this.codeNCM = codeNCM;
+    this.density = density;
+    this.tags = tags || [];
+    this.documents = documents || [];
+    this.photos = photos || [];
+  }
+
+  static create({
+    discountPercent,
+    discountValue,
+    price,
+    priceUnit,
+    description,
+    detailedProductDescription,
+    category,
+    freeWeight,
+    grossWeight,
+    color,
+    embalagem_id,
+    codeEAN,
+    validity,
+    brand,
+    producer,
+    cost,
+    inventory,
+    inventoryCost,
+    size,
+    codeProd,
+    codeNCM,
+    density,
+    tags,
+    documents,
+    photos,
+  }: IProduct) {
+    return new Product({
+      discountPercent,
+      discountValue,
+      price,
+      priceUnit,
+      description,
+      detailedProductDescription,
+      category,
+      freeWeight,
+      grossWeight,
+      color,
+      embalagem_id,
+      codeEAN,
+      validity,
+      brand,
+      producer,
+      cost,
+      inventory,
+      inventoryCost,
+      size,
+      codeProd,
+      codeNCM,
+      density,
+      tags,
+      documents,
+      photos,
+    });
   }
 }
 
