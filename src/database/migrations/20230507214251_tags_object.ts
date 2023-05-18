@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('id').primary().unique();
     table.uuid('tags_id').references('id').inTable('tags');
     table.uuid('object_id'); // some object id
-    table.string('object_table_name'); // name of table
+    table.string('object_table_name'); // name of object table
 
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());

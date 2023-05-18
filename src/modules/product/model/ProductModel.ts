@@ -23,20 +23,22 @@ interface IProduct {
   grossWeight: number; //peso bruto
   color: string;
   validity: string; // validade
+  brand: string; // marca
+  size: string;
+  producer: string; // fabricante
   //
   // relacionamentos
   //
   tags: string[]; // tabela tags relacionadas ao produto
   // embalagens de venda
   embalagem_id: string; // tabela N:1
-  brand: string; // marca
-  producer: string; // fabricante
-  size: string;
-  fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
+  documents: string[]; // deve permitir salvar documents ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
   photos: string[]; // tabela 1:N
 }
 
 /*    INFORMACOES SOBRE O PRODUTO
+  - Produto pode ser produto acabado, materia-prima
+  - ou qualquer outro produto, ou seja, produto e generico
   cada produto tem sua litragem para facilicitar um dia se tornar e-comerce
   ex: ATIVADO 140 - 5 litros
   ex: ATIVADO 140 - 200 litros
@@ -44,6 +46,7 @@ interface IProduct {
 */
 
 class Product implements IProduct {
+  static STATUS = { ACTIVE: true, INACTIVE: false, SHOW: true, HIDE: false };
   id: string;
   active: boolean; // esta ativo ?
   showInWeb: boolean; // mostra no site, default is false ?
@@ -52,6 +55,9 @@ class Product implements IProduct {
   codeProd: string; // unique
   codeNCM: string;
   codeEAN: string; // codigo de barras
+  color: string; // pode ser enum
+  validity: string; // validade
+  size: string;
   price: number; // preco do produto
   priceUnit: number;
   discountValue: number; // desconto no preco
@@ -59,36 +65,35 @@ class Product implements IProduct {
   cost: number; // estoque do produto
   inventory: number; // estoque do produto
   inventoryCost: number; // estoque do produto
-  category: string; // categoria do produto - outra tabela
   density: number; // densidade do produto
   freeWeight: number;
   grossWeight: number;
-  color: string; // pode ser enum
-  validity: string; // validade
-  // tags relacionadas ao produto
-  tags: string[]; // tabela externa ou string separada por virgula
-  // embalagens de venda
-  embalagem_id: string; // tabela N:1
+  // FUTURE RELS
   brand: string; // marca
   producer: string; // fabricante
-  size: string;
-  fispq_id: string; // deve permitir salvar fispq ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
+  supplier: string; // fornecedor
+
+  // RELATIONSHIPS
+  // tags relacionadas ao produto
+  tags: string[]; // N:N - tabela externa ou string separada por virgula
+  category: string; // N:N - categoria do produto - outra tabela
+  // embalagens de venda
+  embalagem_id: string; // tabela N:1
+  documents: string[]; // 1:N na tabela documents deve ter o id do produto
+  //deve permitir salvar documents ou documentos, ver se pode liberar no site, criar tabela ou url aqui?
   photos: string[]; // tabela 1:N
 
   constructor() {
     this.id = v4();
-    this.active = true;
-    this.showInWeb = false;
+    this.active = Product.STATUS.ACTIVE;
+    this.showInWeb = Product.STATUS.HIDE;
     this.discountPercent = 0;
     this.discountValue = 0;
     this.price = 0;
     this.priceUnit = 0;
     this.description = '';
     this.detailedProductDescription = '';
-    this.photos = [];
     this.category = '';
-    this.fispq_id = '';
-    this.tags = [];
     this.freeWeight = 0;
     this.grossWeight = 0;
     this.color = '';
@@ -97,6 +102,7 @@ class Product implements IProduct {
     this.validity = '';
     this.brand = '';
     this.producer = '';
+    this.supplier = '';
     this.cost = 0;
     this.inventory = 0;
     this.inventoryCost = 0;
@@ -104,6 +110,9 @@ class Product implements IProduct {
     this.codeProd = '';
     this.codeNCM = '';
     this.density = 0;
+    this.tags = [];
+    this.documents = [];
+    this.photos = [];
   }
 }
 
