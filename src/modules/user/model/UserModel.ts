@@ -50,7 +50,7 @@ class User {
     };
   }
 
-  static create({ id, name, email, password_hash, isActive, isAdmin }: IUser) {
+  static create({ name, email, password_hash }: IUser) {
     return new User({
       id: v4(),
       name,

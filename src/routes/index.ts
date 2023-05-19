@@ -28,6 +28,7 @@ routes.get('/', (_, response) => {
     message: 'Just do it!',
   });
 });
+
 routes.get('/err', (_, __) => {
   throw new AppError('Erro teste');
 });

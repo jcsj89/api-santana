@@ -33,7 +33,7 @@ productRoutes.post(
       codeEAN: Joi.string().max(64).empty(''),
       validity: Joi.string().max(256).empty(''),
       brand: Joi.string().max(256).empty(''),
-      producer: Joi.string().max(256),
+      producer: Joi.string().max(256).empty(''),
       cost: Joi.number().max(99999999),
       inventory: Joi.number().max(99999999),
       inventoryCost: Joi.number().max(99999999),

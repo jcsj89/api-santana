@@ -3,6 +3,7 @@ declare namespace Express {
     user: { id: string; isAdmin: boolean };
   }
   export interface Response {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     user: any;
   }
 }
