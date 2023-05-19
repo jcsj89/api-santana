@@ -1,3 +1,4 @@
+import knex from '../../../database/connection';
 import AppError from '../../../middlewares/AppError';
 import Product from '../model/ProductModel';
 
@@ -77,10 +78,10 @@ export default class CreateProductService {
     };
 
     const product = new Product(prod);
+    console.log(product);
 
-    // find tags with same name
     try {
-      // await knex('tags').insert(newTag);
+      await knex('products').insert(product);
     } catch (error) {
       console.log(error); //tratar oque fazer com o erro depois, se vai logar ou fazer nada
       throw new AppError('Create Product Service::error insert knex');

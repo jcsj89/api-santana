@@ -82,31 +82,27 @@ class Product {
   photos?: string[]; // tabela 1:N
 
   constructor({
-    discountPercent = 0,
-    discountValue = 0,
+    description = '',
+    detailedProductDescription = '',
     price = 0,
     priceUnit = 0,
-    description,
-    detailedProductDescription,
+    discountPercent = 0,
+    discountValue = 0,
     freeWeight = 0,
     grossWeight = 0,
-    color,
-    embalagem_id,
-    codeEAN,
-    validity,
-    brand,
-    producer,
+    color = '',
+    codeEAN = '',
+    validity = '',
+    brand = '',
+    producer = '',
     cost = 0,
     inventory = 0,
     inventoryCost = 0,
-    size,
-    codeProd,
-    codeNCM,
+    size = '',
+    codeProd = '',
+    codeNCM = '',
     density = 0,
-    category = [],
-    tags,
-    documents,
-    photos,
+    embalagem_id = '',
   }: IProduct) {
     this.id = v4();
     this.active = Product.STATUS.ACTIVE;
@@ -117,7 +113,6 @@ class Product {
     this.priceUnit = priceUnit;
     this.description = description;
     this.detailedProductDescription = detailedProductDescription;
-    this.category = category;
     this.freeWeight = freeWeight;
     this.grossWeight = grossWeight;
     this.color = color;
@@ -133,9 +128,6 @@ class Product {
     this.codeProd = codeProd;
     this.codeNCM = codeNCM;
     this.density = density;
-    this.tags = tags || [];
-    this.documents = documents || [];
-    this.photos = photos || [];
   }
 
   static create({
@@ -166,16 +158,16 @@ class Product {
     photos,
   }: IProduct) {
     return new Product({
-      discountPercent,
-      discountValue,
-      price,
-      priceUnit,
       description,
       detailedProductDescription,
+      price,
+      priceUnit,
+      discountPercent,
+      discountValue,
+      color,
       category,
       freeWeight,
       grossWeight,
-      color,
       embalagem_id,
       codeEAN,
       validity,
