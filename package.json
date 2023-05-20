@@ -16,7 +16,7 @@
     "nodemon:dev": "export NODE_ENV=development && nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
     "dev": "export NODE_ENV=development && ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/server.ts",
     "start": "tsc -p . &&  node dist/server.js",
-    "build": "tsc -p .",
+    "build": "npx tsc -p .",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "knex": "env-cmd ts-node ./node_modules/.bin/knex --knexfile src/database/knexfile.ts",
