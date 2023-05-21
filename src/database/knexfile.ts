@@ -10,7 +10,7 @@ module.exports = {
     client: 'pg',
     connection: process.env.DB_URL,
     migrations: {
-      directory: path.resolve(__dirname, '..', 'database', 'migrations'),
+      directory: path.resolve(__dirname, 'migrations'),
     },
     useNullAsDefault: true,
     logging: true,
@@ -18,12 +18,12 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
-      // connectionString: process.env.DB_URL,
-      connection: process.env.DB_URL,
-      ssl: { rejectUnauthorized: false },
+      connectionString: process.env.DB_URL,
+      // connection: process.env.DB_URL,
+      ssl: true,
     },
     migrations: {
-      directory: path.resolve(__dirname, '..', 'database', 'migrations'),
+      directory: path.resolve(__dirname, 'migrations'),
     },
     useNullAsDefault: true,
     pool: {

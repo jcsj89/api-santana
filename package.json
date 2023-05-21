@@ -15,14 +15,15 @@
   "scripts": {
     "nodemon:dev": "export NODE_ENV=development && nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
     "dev": "export NODE_ENV=development && ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/server.ts",
-    "start": "tsc -p . &&  node dist/server.js",
-    "build": "npm install && tsc -p .",
+    "start": "node dist/server.js",
+    "build": "npm install && npx tsc -p .",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "knex": "env-cmd ts-node ./node_modules/.bin/knex --knexfile src/database/knexfile.ts",
     "knex:make": "ts-node ./node_modules/.bin/knex migrate:make --knexfile src/database/knexfile.ts -x ts",
     "knex:prod": "env-cmd npx knex --knexfile dist/database/knexfile.js",
-    "knex:seeds": "npm run knex seed:run"
+    "knex:seeds": "npm run knex seed:run",
+    "knex:run-prod": "npm run knex:prod migrate:latest"
   },
   "repository": {
     "type": "git",
