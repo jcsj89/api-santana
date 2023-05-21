@@ -3,6 +3,8 @@ import 'express-async-errors';
 import 'pg';
 dotenv.config();
 
+import config from './config';
+
 import { errors } from 'celebrate';
 
 import express, { NextFunction, Request, Response } from 'express';
@@ -34,11 +36,9 @@ app.use('/public', express.static(path.resolve(__dirname, '..', 'public')));
 const isProduction = process.env.NODE_ENV === 'production';
 
 if (isProduction) {
-  console.log('DATABASE IN PRODUCTION [OK] - ', process.env.JWT_SECRET);
+  console.log('DATABASE IN PRODUCTION [OK] - ', config.token);
 } else {
-  console.log('DATABASE IN DEVLOPMENT [OK] - ', process.env.JWT_TEST_SECRET);
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // const teste = require('./tests/knex.test');
+  console.log('DATABASE IN DEVLOPMENT [OK] - ', config.tokenTest);
 }
 
 // SETUP ROUTES

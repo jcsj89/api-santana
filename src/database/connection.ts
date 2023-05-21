@@ -1,14 +1,15 @@
 import knex from 'knex';
+import config from '../config';
 
-let environment = process.env.NODE_ENV || 'development';
+let environment = config.env || 'development';
 
-environment !== 'development' && environment !== 'production'
-  ? (environment = 'production')
+config.env !== 'development' && config.env !== 'production'
+  ? (environment = 'development')
   : null;
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const config = require('./knexfile')[environment];
+const knexConfig = require('./knexfile')[environment];
 
-const connection = knex(config);
+const connection = knex(knexConfig);
 
 export default connection;
