@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
 // routes
-import userRoutes from '../modules/user/routes/user.routes';
-import sessionRoutes from '../modules/security/session/routes/session.route';
-import roleRoutes from '../modules/security/role/routes/role.routes';
-import userRoleRoutes from '../modules/security/user-role/routes/userRole.routes';
 import productRoutes from '../modules/product/routes/product.routes';
+import roleRoutes from '../modules/security/role/routes/role.routes';
+import sessionRoutes from '../modules/security/session/routes/session.route';
+import userRoleRoutes from '../modules/security/user-role/routes/userRole.routes';
 import tagsRoutes from '../modules/tag/routes/tags.routes';
+import userRoutes from '../modules/user/routes/user.routes';
 
 // middleware error
 import AppError from '../middlewares/AppError';
@@ -24,8 +24,16 @@ routes.get('/', (_, response) => {
   response.json({
     project: 'API Santana',
     description:
-      'Esta api faz o acesso, permissoes e configuracoes do site Santana',
+      'Esta api faz o acesso, permissoes, configuracoes e cadastro dos produtos e tudo relacionado do site Santana',
     message: 'Just do it!',
+    endPoints: {
+      Users: {
+        POST: ['/users', 'Cadastra um usuario no sistema.'],
+        GET: ['/users', 'Lista todos os usuarios do sistema.'],
+        PUT: ['/users/{id}', 'Atualiza os dados de um usuario no sistema.'],
+        DELETE: ['/users/{id}', 'Deleta um usuario no sistema.'],
+      },
+    },
   });
 });
 
