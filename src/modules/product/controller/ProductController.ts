@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CreateProductService from '../services/CreateProductService';
 import DeleteProductService from '../services/DeleteProductService';
 import ListProductService from '../services/ListProductService';
+import UploadProductService from '../services/UploadProductService';
 
 export default class ProductController {
   public async list(request: Request, response: Response) {
@@ -71,5 +72,19 @@ export default class ProductController {
     const deleteProductService = new DeleteProductService();
     const { id } = request.params;
     return response.json(await deleteProductService.execute({ id }));
+  }
+
+  public async uploadImage(request: Request, response: Response) {
+    const uploadProductService = new UploadProductService();
+
+    const { id } = request.params;
+
+    const resp = uploadProductService.execute({
+      request,
+      response,
+      fieldname: 'doc',
+      id,
+    });
+    return resp;
   }
 }

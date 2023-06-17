@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 // routes
 import productRoutes from '../modules/product/routes/product.routes';
 import roleRoutes from '../modules/security/role/routes/role.routes';
@@ -37,6 +36,7 @@ routes.get('/', (_, response) => {
   });
 });
 
+// err teste
 routes.get('/err', (_, __) => {
   throw new AppError('Erro teste');
 });

@@ -23,8 +23,8 @@ const PORT = process.env.PORT || 3333;
 // EXEC
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // parse strings or arrays
+app.use(express.json()); // parse json
 
 // SETUP CORS
 app.use(cors());

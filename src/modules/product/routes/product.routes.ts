@@ -19,6 +19,7 @@ productRoutes.delete(
   celebrate(deleteProductValidation()),
   productController.delete,
 );
+
 // create a product
 productRoutes.post(
   '/products',
@@ -28,5 +29,8 @@ productRoutes.post(
 
 // update a products
 productRoutes.put('/products/:id', productController.update);
+
+// upload a products
+productRoutes.post('/products/upload/:id', productController.uploadImage);
 
 export default productRoutes;
