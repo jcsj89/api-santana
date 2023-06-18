@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import multer from 'multer';
+import knex from '../../../database/connection';
+import AppError from '../../../middlewares/AppError';
 import { upload } from '../../../middlewares/UploadsMulter';
+import PhotoModel from '../sub-modules/photos/model/PhotoModel';
 
 interface IRequest {
   request: Request;
@@ -9,20 +12,18 @@ interface IRequest {
   id: string;
 }
 
-interface IResponse {
-  message: string;
-}
-
 export default class UploadProductService {
-  public async execute({
-    request,
-    response,
-    fieldname,
-    id,
-  }: IRequest): Promise<IResponse> {
+  public async execute({ request, response, fieldname, id }: IRequest) {
     const uploadImg = upload.single(fieldname);
 
-    uploadImg(request, response, function (err: any) {
+    // validate if product exist
+    const product = await knex('products').where({ id }).first();
+
+    if (!product)
+      return response.status(400).send({ error: 'Produto nao encontrado' });
+
+    // do upload
+    uploadImg(request, response, async function (err: any) {
       if (err instanceof multer.MulterError) {
         if (err.code === 'LIMIT_FILE_SIZE')
           return response.status(400).send({ error: err.message });
@@ -41,11 +42,48 @@ export default class UploadProductService {
         if (request.file === undefined || !request.file) {
           return response.status(400).send({ error: 'Nenhum arquivo anexado' });
         }
-        console.log(request.file);
-        // console.log(request.files);
-        // return response.json({ msg: 'upload ok' });
-        // return next();
-        return response.json({ msg: 'upload' });
+
+        // insert photo in db
+        if (request.file && fieldname.includes('photo')) {
+          const file = {
+            originalName: request.file.originalname,
+            mimetype: request.file.mimetype,
+            size: request.file.size,
+            fileName: request.file.filename,
+            path: request.file.path,
+            productId: id,
+          };
+
+          const photo = PhotoModel.create(file);
+
+          try {
+            await knex('photos').insert(photo);
+            return response.status(200).json({ photo });
+          } catch (error) {
+            throw new AppError('Erro ao cadastrar foto.');
+          }
+        }
+
+        // insert document in db
+        if (request.file && fieldname.includes('doc')) {
+          const file = {
+            originalName: request.file.originalname,
+            mimetype: request.file.mimetype,
+            size: request.file.size,
+            fileName: request.file.filename,
+            path: request.file.path,
+            productId: id,
+          };
+
+          const photo = PhotoModel.create(file);
+
+          try {
+            await knex('photos').insert(photo);
+            return response.status(200).json({ photo });
+          } catch (error) {
+            throw new AppError('Erro ao cadastrar foto.');
+          }
+        }
       }
     });
 

@@ -79,12 +79,28 @@ export default class ProductController {
 
     const { id } = request.params;
 
-    const resp = uploadProductService.execute({
+    const resp = await uploadProductService.execute({
+      request,
+      response,
+      fieldname: 'photo',
+      id,
+    });
+
+    return resp;
+  }
+
+  public async uploadDocument(request: Request, response: Response) {
+    const uploadProductService = new UploadProductService();
+
+    const { id } = request.params;
+
+    const resp = await uploadProductService.execute({
       request,
       response,
       fieldname: 'doc',
       id,
     });
+
     return resp;
   }
 }

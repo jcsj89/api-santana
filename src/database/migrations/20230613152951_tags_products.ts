@@ -3,8 +3,8 @@ import { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('tags_products', (table) => {
     table.uuid('id').primary().unique();
-    table.uuid('tag_id').references('id').inTable('tags');
-    table.uuid('product_id').references('id').inTable('products');
+    table.uuid('tagId').references('id').inTable('tags');
+    table.uuid('productId').references('id').inTable('products');
 
     // Standards
     table.timestamp('created_at').defaultTo(knex.fn.now());
