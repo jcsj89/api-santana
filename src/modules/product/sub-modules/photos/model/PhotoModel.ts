@@ -1,6 +1,8 @@
 import { v4 } from 'uuid';
 
 interface IPhoto {
+  status?: boolean;
+  showInWeb?: boolean;
   originalName: string;
   mimetype: string;
   size: number;
@@ -10,7 +12,10 @@ interface IPhoto {
 }
 
 class PhotoModel {
+  static STATUS = { ACTIVE: true, INACTIVE: false, SHOW: true, HIDE: false };
   id: string;
+  status: boolean;
+  showInWeb: boolean;
   originalName: string;
   mimetype: string;
   size: number;
@@ -18,39 +23,37 @@ class PhotoModel {
   productId: string;
   path: string;
 
-  constructor({
-    originalName = '',
-    mimetype = '',
-    size = 0,
-    fileName = '',
-    productId = '',
-    path = '',
-  }: IPhoto) {
+  private constructor() {
     this.id = v4();
-    this.originalName = originalName;
-    this.mimetype = mimetype;
-    this.size = size;
-    this.fileName = fileName;
-    this.productId = productId;
-    this.path = path;
+    this.status = PhotoModel.STATUS.ACTIVE;
+    this.showInWeb = PhotoModel.STATUS.SHOW;
+    this.originalName = '';
+    this.mimetype = '';
+    this.size = 0;
+    this.fileName = '';
+    this.productId = '';
+    this.path = '';
   }
 
+  // create a new Photo Object
   static create({
     originalName,
     mimetype,
-    size,
+    size = 0,
     fileName,
     path,
     productId,
   }: IPhoto) {
-    return new PhotoModel({
-      originalName,
-      mimetype,
-      size,
-      fileName,
-      path,
-      productId,
-    });
+    const photo = new PhotoModel();
+
+    photo.originalName = originalName;
+    photo.mimetype = mimetype;
+    photo.size = size;
+    photo.fileName = fileName;
+    photo.path = path;
+    photo.productId = productId;
+
+    return photo;
   }
 }
 

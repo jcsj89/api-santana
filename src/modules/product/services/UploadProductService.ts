@@ -4,6 +4,7 @@ import knex from '../../../database/connection';
 import AppError from '../../../middlewares/AppError';
 import { upload } from '../../../middlewares/UploadsMulter';
 import PhotoModel from '../sub-modules/photos/model/PhotoModel';
+import DocumentModel from '../sub-modules/document/model/DocumentModel';
 
 interface IRequest {
   request: Request;
@@ -27,9 +28,11 @@ export default class UploadProductService {
       if (err instanceof multer.MulterError) {
         if (err.code === 'LIMIT_FILE_SIZE')
           return response.status(400).send({ error: err.message });
+
         // handle unexpected file error
         if (err.code === 'LIMIT_UNEXPECTED_FILE')
           return response.status(400).send({ error: err.message });
+
         // handle unexpected field key error
         if (err.code === 'LIMIT_FIELD_KEY')
           return response.status(400).send({ error: err.message });
@@ -75,11 +78,11 @@ export default class UploadProductService {
             productId: id,
           };
 
-          const photo = PhotoModel.create(file);
+          const doc = DocumentModel.create(file);
 
           try {
-            await knex('photos').insert(photo);
-            return response.status(200).json({ photo });
+            await knex('documents').insert(doc);
+            return response.status(200).json({ doc });
           } catch (error) {
             throw new AppError('Erro ao cadastrar foto.');
           }
