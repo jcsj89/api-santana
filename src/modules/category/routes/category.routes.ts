@@ -2,25 +2,30 @@ import { Joi, Segments, celebrate } from 'celebrate';
 import { Router } from 'express';
 import isAuthenticated from '../../../middlewares/isAuthenticated';
 import isAuthorized from '../../../middlewares/isAuthorized';
-import TagController from '../controller/CategoryController';
+import CategoryController from '../controller/CategoryController';
 
-const tagController = new TagController();
+const categoryController = new CategoryController();
 const tagRoutes = Router();
 
-tagRoutes.get('/tags', isAuthenticated, isAuthorized, tagController.index);
+tagRoutes.get(
+  '/category',
+  isAuthenticated,
+  isAuthorized,
+  categoryController.index,
+);
 tagRoutes.post(
-  '/tags',
+  '/category',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       tagName: Joi.string().min(2).max(64).required(),
       description: Joi.string().min(3).max(1023),
     }),
   }),
-  tagController.create,
+  categoryController.create,
 );
 
 tagRoutes.put(
-  '/tags/:id',
+  '/category/:id',
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       id: Joi.string()
@@ -34,11 +39,11 @@ tagRoutes.put(
       description: Joi.string().min(3).max(1023),
     }),
   }),
-  tagController.update,
+  categoryController.update,
 );
 
 tagRoutes.delete(
-  '/tags/:id',
+  '/category/:id',
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       id: Joi.string()
@@ -48,7 +53,7 @@ tagRoutes.delete(
         .required(),
     }),
   }),
-  tagController.delete,
+  categoryController.delete,
 );
 
 export default tagRoutes;
