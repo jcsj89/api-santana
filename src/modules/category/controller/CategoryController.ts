@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
-import CreateTagsService from '../services/CreateCategoryService';
-import DeleteTagsService from '../services/DeleteCategoryService';
-import ListTagsService from '../services/ListCategoryService';
-import UpdateTagsService from '../services/UpdateCategoryService';
+import CreateCategoryService from '../services/CreateCategoryService';
+import DeleteCategoryService from '../services/DeleteCategoryService';
+import ListCategoryService from '../services/ListCategoryService';
+import UpdateCategoryService from '../services/UpdateCategoryService';
 
-export default class TagController {
-  // get all Tags
+export default class CategoryController {
+  // get all Category
   public async index(request: Request, response: Response): Promise<Response> {
     // tags service
-    const service = new ListTagsService();
+    const service = new ListCategoryService();
 
     const tags = await service.execute();
 
@@ -17,7 +17,7 @@ export default class TagController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     const { tagName, description } = request.body;
-    const service = new CreateTagsService();
+    const service = new CreateCategoryService();
 
     const tag = {
       tagName,
@@ -30,7 +30,7 @@ export default class TagController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const service = new UpdateTagsService();
+    const service = new UpdateCategoryService();
     const { tagName, description } = request.body;
     const { id } = request.params;
 
@@ -46,7 +46,7 @@ export default class TagController {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const service = new DeleteTagsService();
+    const service = new DeleteCategoryService();
     const { id } = request.params;
 
     const tagUpdated = await service.execute({ id });
