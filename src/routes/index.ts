@@ -12,13 +12,14 @@ import AppError from '../middlewares/AppError';
 
 const routes = Router();
 
-routes.use(userRoutes); // rotas dos usuarios
-routes.use(sessionRoutes); // rota de sessao, login, etc...
-routes.use(roleRoutes); // rotas dos roles
-routes.use(userRoleRoutes); // rotas da juncao user e roles
-routes.use(productRoutes); // rota produto
-routes.use(tagsRoutes); // rotas das tags
+routes.use(userRoutes); // user routes
+routes.use(sessionRoutes); // section route, login, etc...
+routes.use(roleRoutes); // role routes
+routes.use(userRoleRoutes); // userRole routes
+routes.use(productRoutes); // products routes
+routes.use(tagsRoutes); // tags routs
 
+// route that dont do nothing, just show welcome!
 routes.get('/', (_, response) => {
   response.json({
     project: 'API Santana',
