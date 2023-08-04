@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CreateProductService from '../services/CreateProductService';
 import DeleteProductService from '../services/DeleteProductService';
 import ListProductService from '../services/ListProductService';
+import UpdateProductService from '../services/UpdateProductService';
 import UploadProductService from '../services/UploadProductService';
 
 export default class ProductController {
@@ -65,7 +66,84 @@ export default class ProductController {
   }
 
   public async update(request: Request, response: Response) {
-    return 'update of products';
+    const updateProductService = new UpdateProductService();
+    const { id } = request.params;
+
+    const {
+      description,
+      detailedProductDescription,
+      price,
+      priceUnit,
+      freeWeight,
+      grossWeight,
+      discountPercent,
+      discountValue,
+      color,
+      codeEAN,
+      validity,
+      brand,
+      producer,
+      cost,
+      inventory,
+      inventoryCost,
+      size,
+      codeProd,
+      codeNCM,
+      density,
+      embalagem_id,
+    } = request.body;
+
+    await updateProductService.execute({
+      id,
+      description,
+      detailedProductDescription,
+      price,
+      priceUnit,
+      freeWeight,
+      grossWeight,
+      discountPercent,
+      discountValue,
+      color,
+      codeEAN,
+      validity,
+      brand,
+      producer,
+      cost,
+      inventory,
+      inventoryCost,
+      size,
+      codeProd,
+      codeNCM,
+      density,
+      embalagem_id,
+    });
+
+    return response.json(
+      await updateProductService.execute({
+        id,
+        description,
+        detailedProductDescription,
+        price,
+        priceUnit,
+        freeWeight,
+        grossWeight,
+        discountPercent,
+        discountValue,
+        color,
+        codeEAN,
+        validity,
+        brand,
+        producer,
+        cost,
+        inventory,
+        inventoryCost,
+        size,
+        codeProd,
+        codeNCM,
+        density,
+        embalagem_id,
+      }),
+    );
   }
 
   public async delete(request: Request, response: Response) {
