@@ -11,27 +11,30 @@ interface IRequest {
 }
 
 export default class CreateUserService {
+  // Describe the checking logic in order
+  /*
+    1 - check if has any user in database using the same email
+    2 - do password encryptation
+    3 - create a User object with all datas
+    4 - save it in database and return without password
+  */
+
   public async execute({ name, email, password }: IRequest): Promise<User> {
+    // check if has any user in database using the same email
     const hasUser: User[] = await knex
       .from('users')
       .select('*')
       .where({ email: email });
 
+    // if alredy exists a user this return a error like a notice
     if (hasUser.length) {
       throw new AppError('User alredy exists.');
     }
 
+    // here is point that we encrypt the user password
     const password_hash = await bcrypt.hash(password, 8);
 
-    // const user2: User = {
-    //   id: v4(),
-    //   name,
-    //   email,
-    //   password_hash,
-    //   isActive: true,
-    //   isAdmin: false,
-    // };
-
+    // here is creating a new user, but in future I will change to use create method
     const user: User = new User({ name, email, password_hash });
 
     try {
@@ -41,7 +44,7 @@ export default class CreateUserService {
       throw new AppError('CreateUserService::error insert knex');
     }
 
-    // retorno sem password
+    // return blank password
     user.password_hash = '';
 
     return user;

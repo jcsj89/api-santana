@@ -30,6 +30,6 @@ export default class DeleteProductService {
       throw new AppError('UpdateProductService::error update knex');
     }
 
-    return { message: 'Product deleted.' };
+    return { message: `Product [${hasProduct.description}] was deleted.` };
   }
 }

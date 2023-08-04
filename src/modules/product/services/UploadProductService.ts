@@ -3,8 +3,8 @@ import multer from 'multer';
 import knex from '../../../database/connection';
 import AppError from '../../../middlewares/AppError';
 import { upload } from '../../../middlewares/UploadsMulter';
-import PhotoModel from '../sub-modules/photos/model/PhotoModel';
 import DocumentModel from '../sub-modules/document/model/DocumentModel';
+import PhotoModel from '../sub-modules/photos/model/PhotoModel';
 
 interface IRequest {
   request: Request;
@@ -14,6 +14,11 @@ interface IRequest {
 }
 
 export default class UploadProductService {
+  // Describe the checking logic in order
+  /*
+    1 - check if product exists
+  */
+
   public async execute({ request, response, fieldname, id }: IRequest) {
     const uploadImg = upload.single(fieldname);
 

@@ -18,6 +18,16 @@ interface IRequest {
 // name needed length > 4
 // password length > 4
 export default class UpdateUserService {
+  // Describe the checking logic in order
+  /*
+    1 - check if the UUId is valid
+    2 - check if the user exists in database
+    3 - check if the email is in correct format
+    4 - check if the email already in use by another user
+    5 - do validations in name, status and password
+      obs : in future I need change way how the user can change his password, maybe I need create a new dedicated service
+  */
+
   public async execute({
     id,
     name,

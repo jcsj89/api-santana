@@ -5,6 +5,7 @@ import UpdateUserService from '../services/UpdateUserService';
 import DeleteUserService from '../services/DeleteUserService';
 
 export default class UserController {
+  // method that return a users list
   public async list(request: Request, response: Response): Promise<Response> {
     const service = new ListUserService();
 
@@ -13,6 +14,7 @@ export default class UserController {
     return response.json(users);
   }
 
+  //method that create a new user in system
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
     const service = new CreateUserService();
@@ -28,6 +30,7 @@ export default class UserController {
     return response.json(inserted);
   }
 
+  // method that update a user
   public async update(request: Request, response: Response): Promise<Response> {
     const service = new UpdateUserService();
     const { name, email, password, isActive } = request.body;
@@ -46,6 +49,7 @@ export default class UserController {
     return response.json(userUpdated);
   }
 
+  // method that delete a user, be careful
   public async delete(request: Request, response: Response): Promise<Response> {
     const service = new DeleteUserService();
     const { id } = request.params;
