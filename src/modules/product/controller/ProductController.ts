@@ -8,12 +8,16 @@ import UploadProductService from '../services/UploadProductService';
 export default class ProductController {
   public async list(request: Request, response: Response) {
     const listProductService = new ListProductService();
+
+    // call service to list all products
     return response.json(await listProductService.execute());
   }
 
   public async create(request: Request, response: Response) {
+    // create a instance of creation service
     const createProductService = new CreateProductService();
 
+    // take vars from request body
     const {
       description,
       detailedProductDescription,
@@ -38,6 +42,7 @@ export default class ProductController {
       embalagem_id,
     } = request.body;
 
+    // return a response with a product created
     return response.json(
       await createProductService.execute({
         description,
@@ -147,6 +152,7 @@ export default class ProductController {
   }
 
   public async delete(request: Request, response: Response) {
+    // delete a product, maybe I need change this changing just the state to inactive
     const deleteProductService = new DeleteProductService();
     const { id } = request.params;
     return response.json(await deleteProductService.execute({ id }));
